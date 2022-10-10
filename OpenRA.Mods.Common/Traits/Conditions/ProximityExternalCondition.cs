@@ -76,14 +76,12 @@ namespace OpenRA.Mods.Common.Traits
 
 		protected override void TraitEnabled(Actor self)
 		{
-			Game.Sound.Play(SoundType.World, Info.EnableSound, self.CenterPosition);
 			desiredRange = Info.Range;
 			desiredVRange = Info.MaximumVerticalOffset;
 		}
 
 		protected override void TraitDisabled(Actor self)
 		{
-			Game.Sound.Play(SoundType.World, Info.DisableSound, self.CenterPosition);
 			desiredRange = WDist.Zero;
 			desiredVRange = WDist.Zero;
 		}

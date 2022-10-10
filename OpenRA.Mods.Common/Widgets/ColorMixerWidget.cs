@@ -133,8 +133,6 @@ namespace OpenRA.Mods.Common.Widgets
 					isMoving = true;
 					SetValueFromPx(mi.Location - RenderOrigin);
 					OnChange();
-
-					Game.Sound.PlayNotification(modRules, null, "Sounds", ClickSound, null);
 					break;
 
 				case MouseInputEvent.Move:

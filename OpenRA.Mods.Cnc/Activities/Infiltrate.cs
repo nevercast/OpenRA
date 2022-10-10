@@ -67,10 +67,6 @@ namespace OpenRA.Mods.Cnc.Activities
 			var exp = self.Owner.PlayerActor.TraitOrDefault<PlayerExperience>();
 			exp?.GiveExperience(infiltrates.Info.PlayerExperience);
 
-			if (!string.IsNullOrEmpty(infiltrates.Info.Notification))
-				Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Speech",
-					infiltrates.Info.Notification, self.Owner.Faction.InternalName);
-
 			TextNotificationsManager.AddTransientLine(infiltrates.Info.TextNotification, self.Owner);
 
 			if (infiltrates.Info.EnterBehaviour == EnterBehaviour.Dispose)

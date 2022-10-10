@@ -137,12 +137,6 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			if (!queued && !CanDeploy())
 			{
-				// Only play the "Cannot deploy here" audio
-				// for non-queued orders
-				foreach (var s in Info.NoTransformSounds)
-					Game.Sound.PlayToPlayer(SoundType.World, self.Owner, s);
-
-				Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Speech", Info.NoTransformNotification, self.Owner.Faction.InternalName);
 				TextNotificationsManager.AddTransientLine(Info.NoTransformTextNotification, self.Owner);
 
 				return;

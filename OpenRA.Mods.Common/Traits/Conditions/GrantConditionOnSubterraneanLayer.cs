@@ -63,9 +63,6 @@ namespace OpenRA.Mods.Common.Traits
 				self.World.AddFrameEndTask(w => w.Add(new SpriteEffect(self.World.Map.CenterOfCell(fromCell), self.World,
 					Info.SubterraneanTransitionImage,
 					Info.SubterraneanTransitionSequence, Info.SubterraneanTransitionPalette)));
-
-			if (!string.IsNullOrEmpty(Info.SubterraneanTransitionSound))
-				Game.Sound.Play(SoundType.World, Info.SubterraneanTransitionSound);
 		}
 
 		void INotifyCenterPositionChanged.CenterPositionChanged(Actor self, byte oldLayer, byte newLayer)

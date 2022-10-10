@@ -120,7 +120,6 @@ namespace OpenRA.Mods.Common.Traits
 
 				if (!silent)
 				{
-					Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Sounds", info.LevelUpNotification, self.Owner.Faction.InternalName);
 					TextNotificationsManager.AddTransientLine(info.LevelUpTextNotification, self.Owner);
 
 					if (info.LevelUpImage != null && info.LevelUpSequence != null)

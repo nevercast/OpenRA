@@ -223,9 +223,6 @@ namespace OpenRA.Mods.Common.Activities
 					return false;
 				}
 
-				if (aircraft.Info.LandingSounds.Length > 0)
-					Game.Sound.Play(SoundType.World, aircraft.Info.LandingSounds, self.World, aircraft.CenterPosition);
-
 				foreach (var notify in self.TraitsImplementing<INotifyLanding>())
 					notify.Landing(self);
 

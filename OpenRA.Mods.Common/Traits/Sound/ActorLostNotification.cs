@@ -43,8 +43,6 @@ namespace OpenRA.Mods.Common.Traits.Sound
 				return;
 
 			var player = Info.NotifyAll ? localPlayer : self.Owner;
-
-			Game.Sound.PlayNotification(self.World.Map.Rules, player, "Speech", Info.Notification, self.Owner.Faction.InternalName);
 			TextNotificationsManager.AddTransientLine(Info.TextNotification, player);
 		}
 	}

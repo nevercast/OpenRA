@@ -575,8 +575,6 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			lobbyChatPanel.AddChild(chatLine);
 			if (scrolledToBottom)
 				lobbyChatPanel.ScrollToBottom(smooth: true);
-
-			Game.Sound.PlayNotification(modRules, null, "Sounds", chatLineSound, null);
 		}
 
 		void UpdateCurrentMap()

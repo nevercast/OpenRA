@@ -226,11 +226,6 @@ namespace OpenRA.Mods.Common.Traits
 
 			if (power == null)
 				return;
-
-			Game.Sound.PlayToPlayer(SoundType.UI, Manager.Self.Owner, Info.SelectTargetSound);
-			Game.Sound.PlayNotification(power.Self.World.Map.Rules, power.Self.Owner, "Speech",
-				Info.SelectTargetSpeechNotification, power.Self.Owner.Faction.InternalName);
-
 			TextNotificationsManager.AddTransientLine(Info.SelectTargetTextNotification, power.Self.Owner);
 
 			power.SelectTarget(power.Self, Key, Manager);

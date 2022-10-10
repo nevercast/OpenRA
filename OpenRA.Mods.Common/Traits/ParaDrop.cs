@@ -108,8 +108,6 @@ namespace OpenRA.Mods.Common.Traits
 				dropPositionable.SetCenterPosition(dropActor, dropPosition);
 				w.Add(dropActor);
 			});
-
-			Game.Sound.Play(SoundType.World, info.ChuteSound, self.CenterPosition);
 			dropDelay = info.DropInterval;
 		}
 

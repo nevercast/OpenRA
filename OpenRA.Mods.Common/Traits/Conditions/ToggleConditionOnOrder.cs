@@ -61,24 +61,11 @@ namespace OpenRA.Mods.Common.Traits
 			{
 				conditionToken = self.GrantCondition(Info.Condition);
 
-				if (Info.EnabledSound != null)
-					Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Sounds", Info.EnabledSound, self.Owner.Faction.InternalName);
-
-				if (Info.EnabledSpeech != null)
-					Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Speech", Info.EnabledSpeech, self.Owner.Faction.InternalName);
-
 				TextNotificationsManager.AddTransientLine(Info.EnabledTextNotification, self.Owner);
 			}
 			else if (!granted && conditionToken != Actor.InvalidConditionToken)
 			{
 				conditionToken = self.RevokeCondition(conditionToken);
-
-				if (Info.DisabledSound != null)
-					Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Sounds", Info.DisabledSound, self.Owner.Faction.InternalName);
-
-				if (Info.DisabledSpeech != null)
-					Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Speech", Info.DisabledSpeech, self.Owner.Faction.InternalName);
-
 				TextNotificationsManager.AddTransientLine(Info.DisabledTextNotification, self.Owner);
 			}
 		}

@@ -113,8 +113,6 @@ namespace OpenRA.Mods.Common.Traits
 				return;
 
 			Repairers.Add(player);
-
-			Game.Sound.PlayNotification(self.World.Map.Rules, player, "Speech", Info.RepairingNotification, player.Faction.InternalName);
 			TextNotificationsManager.AddTransientLine(Info.RepairingTextNotification, self.Owner);
 
 			UpdateCondition(self);

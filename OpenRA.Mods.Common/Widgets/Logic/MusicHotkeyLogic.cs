@@ -63,14 +63,6 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 		void PauseOrResumeMusic()
 		{
-			if (Game.Sound.MusicPlaying)
-				Game.Sound.PauseMusic();
-			else if (Game.Sound.CurrentMusic != null)
-				Game.Sound.PlayMusic();
-			else
-			{
-				musicPlaylist.Play(musicPlaylist.GetNextSong());
-			}
 		}
 
 		void StopMusic()

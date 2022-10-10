@@ -92,10 +92,6 @@ namespace OpenRA.Mods.Common.Activities
 				var controlgroup = w.ControlGroups.GetControlGroupForActor(self);
 
 				self.Dispose();
-				foreach (var s in Sounds)
-					Game.Sound.PlayToPlayer(SoundType.World, self.Owner, s, self.CenterPosition);
-
-				Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Speech", Notification, self.Owner.Faction.InternalName);
 				TextNotificationsManager.AddTransientLine(TextNotification, self.Owner);
 
 				var init = new TypeDictionary

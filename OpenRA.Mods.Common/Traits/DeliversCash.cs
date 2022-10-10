@@ -89,8 +89,6 @@ namespace OpenRA.Mods.Common.Traits
 
 		void INotifyCashTransfer.OnDeliveringCash(Actor self, Actor acceptor)
 		{
-			if (info.Sounds.Length > 0)
-				Game.Sound.Play(SoundType.World, info.Sounds, self.World, self.CenterPosition);
 		}
 
 		public class DeliversCashOrderTargeter : UnitOrderTargeter

@@ -74,9 +74,6 @@ namespace OpenRA.Mods.Common.Traits
 				return;
 
 			conditionToken = self.GrantCondition(info.Condition);
-
-			var sound = info.EnabledSounds.RandomOrDefault(Game.CosmeticRandom);
-			Game.Sound.Play(SoundType.World, sound, self.CenterPosition);
 		}
 
 		void INotifyDamage.Damaged(Actor self, AttackInfo e)
@@ -92,7 +89,6 @@ namespace OpenRA.Mods.Common.Traits
 				conditionToken = self.RevokeCondition(conditionToken);
 
 				var sound = info.DisabledSounds.RandomOrDefault(Game.CosmeticRandom);
-				Game.Sound.Play(SoundType.World, sound, self.CenterPosition);
 			}
 		}
 	}

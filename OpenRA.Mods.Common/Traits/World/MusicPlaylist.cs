@@ -100,9 +100,6 @@ namespace OpenRA.Mods.Common.Traits
 
 		void IWorldLoaded.WorldLoaded(World world, WorldRenderer wr)
 		{
-			// Reset any bogus pre-existing state
-			Game.Sound.DisableWorldSounds = info.DisableWorldSounds;
-
 			if (!world.IsLoadingGameSave)
 				Play();
 		}
@@ -161,8 +158,6 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			if (!SongExists(currentSong) || (CurrentSongIsBackground && IsBackgroundMusicMuted))
 				return;
-
-			Game.Sound.PlayMusicThen(currentSong, PlayNextSong);
 		}
 
 		void PlayNextSong()
@@ -191,7 +186,6 @@ namespace OpenRA.Mods.Common.Traits
 
 			currentSong = music;
 			CurrentSongIsBackground = false;
-			Game.Sound.PlayMusicThen(music, onComplete);
 		}
 
 		public void SetBackgroundMusic(MusicInfo music)
@@ -233,7 +227,6 @@ namespace OpenRA.Mods.Common.Traits
 		public void Stop()
 		{
 			currentSong = null;
-			Game.Sound.StopMusic();
 
 			if (currentBackgroundSong != null)
 			{
@@ -247,10 +240,6 @@ namespace OpenRA.Mods.Common.Traits
 
 		void INotifyActorDisposing.Disposing(Actor self)
 		{
-			if (currentSong != null)
-				Game.Sound.StopMusic();
-
-			Game.Sound.DisableWorldSounds = false;
 		}
 	}
 }

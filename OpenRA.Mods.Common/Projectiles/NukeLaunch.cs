@@ -91,9 +91,6 @@ namespace OpenRA.Mods.Common.Effects
 
 			if (!isLaunched)
 			{
-				if (weapon.Report != null && weapon.Report.Length > 0)
-					Game.Sound.Play(SoundType.World, weapon.Report, world, pos);
-
 				if (anim != null)
 				{
 					anim.PlayRepeating(upSequence);

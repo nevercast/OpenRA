@@ -261,9 +261,6 @@ namespace OpenRA.Mods.Common.Traits
 			if (!IsValidTerrain(self.Location))
 				return;
 
-			if (Info.DeploySounds != null && Info.DeploySounds.Length > 0)
-				Game.Sound.Play(SoundType.World, Info.DeploySounds, self.World, self.CenterPosition);
-
 			// Revoke condition that is applied while undeployed.
 			if (!init)
 				OnDeployStarted();
@@ -284,9 +281,6 @@ namespace OpenRA.Mods.Common.Traits
 			// Something went wrong, most likely due to deploy order spam and the fact that this is a delayed action.
 			if (!init && deployState != DeployState.Deployed)
 				return;
-
-			if (Info.UndeploySounds != null && Info.UndeploySounds.Length > 0)
-				Game.Sound.Play(SoundType.World, Info.UndeploySounds, self.World, self.CenterPosition);
 
 			if (!init)
 				OnUndeployStarted();

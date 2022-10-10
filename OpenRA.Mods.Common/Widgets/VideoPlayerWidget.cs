@@ -62,7 +62,6 @@ namespace OpenRA.Mods.Common.Widgets
 
 			stopped = true;
 			paused = true;
-			Game.Sound.StopVideo();
 			onComplete = () => { };
 
 			invLength = video.Framerate * 1f / video.FrameCount;
@@ -98,11 +97,7 @@ namespace OpenRA.Mods.Common.Widgets
 
 			if (!stopped && !paused)
 			{
-				int nextFrame;
-				if (video.HasAudio && !Game.Sound.DummyEngine)
-					nextFrame = (int)float2.Lerp(0, video.FrameCount, Game.Sound.VideoSeekPosition * invLength);
-				else
-					nextFrame = video.CurrentFrameIndex + 1;
+				var nextFrame = video.CurrentFrameIndex + 1;
 
 				// Without the 2nd check the sound playback sometimes ends before the final frame is displayed which causes the player to be stuck on the first frame
 				if (nextFrame > video.FrameCount || nextFrame < video.CurrentFrameIndex)
@@ -197,11 +192,6 @@ namespace OpenRA.Mods.Common.Widgets
 				return;
 
 			onComplete = after;
-			if (stopped && video.HasAudio)
-				Game.Sound.PlayVideo(video.AudioData, video.AudioChannels, video.SampleBits, video.SampleRate);
-			else
-				Game.Sound.PlayVideo();
-
 			stopped = paused = false;
 		}
 
@@ -211,7 +201,6 @@ namespace OpenRA.Mods.Common.Widgets
 				return;
 
 			paused = true;
-			Game.Sound.PauseVideo();
 		}
 
 		public void Stop()
@@ -221,7 +210,6 @@ namespace OpenRA.Mods.Common.Widgets
 
 			stopped = true;
 			paused = true;
-			Game.Sound.StopVideo();
 			video.Reset();
 			videoSprite.Sheet.GetTexture().SetData(video.CurrentFrameData, textureSize, textureSize);
 			Game.RunAfterTick(onComplete);

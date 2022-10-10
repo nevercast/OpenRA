@@ -41,8 +41,6 @@ namespace OpenRA.Mods.Common.Traits
 
 		void INotifyCashTransfer.OnAcceptingCash(Actor self, Actor donor)
 		{
-			if (info.Sounds.Length > 0)
-				Game.Sound.Play(SoundType.World, info.Sounds, self.World, self.CenterPosition);
 		}
 
 		void INotifyCashTransfer.OnDeliveringCash(Actor self, Actor acceptor) { }

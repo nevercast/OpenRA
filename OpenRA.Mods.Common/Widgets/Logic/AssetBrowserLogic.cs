@@ -247,15 +247,10 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 				{
 					if (isVideoLoaded)
 						player.Play();
-					else if (currentSoundFormat != null)
+					else if (currentSoundFormat == null)
 					{
-						if (currentSound != null)
-							Game.Sound.StopSound(currentSound);
-
-						currentSound = Game.Sound.Play(currentSoundFormat, Game.Sound.SoundVolume);
-					}
-					else
 						animateFrames = true;
+					}
 				};
 
 				playButton.IsVisible = () => isVideoLoaded ? player.Paused : !animateFrames || currentSoundFormat != null;
@@ -282,9 +277,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 				{
 					if (isVideoLoaded)
 						player.Stop();
-					else if (currentSound != null)
-						Game.Sound.StopSound(currentSound);
-					else
+					else if (currentSound == null)
 					{
 						currentFrame = 0;
 						animateFrames = false;
@@ -678,28 +671,16 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			return name;
 		}
 
-		// Mute/UnMute code copied from MissionBrowserLogic.
-		float cachedMusicVolume;
 		void MuteSounds()
 		{
-			if (Game.Sound.MusicVolume > 0)
-			{
-				cachedMusicVolume = Game.Sound.MusicVolume;
-				Game.Sound.MusicVolume = 0;
-			}
 		}
 
 		void UnMuteSounds()
 		{
-			if (cachedMusicVolume > 0)
-				Game.Sound.MusicVolume = cachedMusicVolume;
 		}
 
 		void ClearLoadedAssets()
 		{
-			if (currentSound != null)
-				Game.Sound.StopSound(currentSound);
-
 			currentSprites = null;
 			currentFrame = 0;
 

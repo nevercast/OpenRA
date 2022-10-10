@@ -226,8 +226,6 @@ namespace OpenRA
 			foreach (var cmp in WorldActor.TraitsImplementing<ICreatePlayers>())
 				cmp.CreatePlayers(this, playerRandom);
 
-			Game.Sound.SoundVolumeModifier = 1.0f;
-
 			gameInfo = new GameInformation
 			{
 				Mod = Game.ModData.Manifest.Id,
@@ -269,7 +267,6 @@ namespace OpenRA
 			if (IsLoadingGameSave)
 			{
 				wasLoadingGameSave = true;
-				Game.Sound.DisableAllSounds = true;
 				foreach (var nsr in WorldActor.TraitsImplementing<INotifyGameLoading>())
 					nsr.GameLoading(this);
 			}
@@ -422,8 +419,6 @@ namespace OpenRA
 				}
 
 				gameSaveTraitData.Clear();
-
-				Game.Sound.DisableAllSounds = false;
 				foreach (var nsr in WorldActor.TraitsImplementing<INotifyGameLoaded>())
 					nsr.GameLoaded(this);
 
@@ -587,11 +582,6 @@ namespace OpenRA
 			OrderGenerator?.Deactivate();
 
 			frameEndActions.Clear();
-
-			Game.Sound.StopAudio();
-			Game.Sound.StopVideo();
-			if (IsLoadingGameSave)
-				Game.Sound.DisableAllSounds = false;
 
 			ModelCache.Dispose();
 

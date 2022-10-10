@@ -58,12 +58,11 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			var playButton = panel.Get<ButtonWidget>("BUTTON_PLAY");
 			playButton.OnClick = Play;
 			playButton.IsDisabled = noMusic;
-			playButton.IsVisible = () => !Game.Sound.MusicPlaying;
+			playButton.IsVisible = () => false;
 
 			var pauseButton = panel.Get<ButtonWidget>("BUTTON_PAUSE");
-			pauseButton.OnClick = Game.Sound.PauseMusic;
 			pauseButton.IsDisabled = noMusic;
-			pauseButton.IsVisible = () => Game.Sound.MusicPlaying;
+			pauseButton.IsVisible = () => false;
 
 			var stopButton = panel.Get<ButtonWidget>("BUTTON_STOP");
 			stopButton.OnClick = () => { musicPlaylist.Stop(); };
@@ -78,50 +77,25 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			prevButton.IsDisabled = noMusic;
 
 			var shuffleCheckbox = panel.Get<CheckboxWidget>("SHUFFLE");
-			shuffleCheckbox.IsChecked = () => Game.Settings.Sound.Shuffle;
-			shuffleCheckbox.OnClick = () => Game.Settings.Sound.Shuffle ^= true;
 			shuffleCheckbox.IsDisabled = () => musicPlaylist.CurrentSongIsBackground;
 
 			var repeatCheckbox = panel.Get<CheckboxWidget>("REPEAT");
-			repeatCheckbox.IsChecked = () => Game.Settings.Sound.Repeat;
-			repeatCheckbox.OnClick = () => Game.Sound.SetMusicLooped(!Game.Settings.Sound.Repeat);
 			repeatCheckbox.IsDisabled = () => musicPlaylist.CurrentSongIsBackground;
 
-			panel.Get<LabelWidget>("TIME_LABEL").GetText = () =>
-			{
-				if (currentSong == null || musicPlaylist.CurrentSongIsBackground)
-					return "";
-
-				var seek = Game.Sound.MusicSeekPosition;
-				var minutes = (int)seek / 60;
-				var seconds = (int)seek % 60;
-				var totalMinutes = currentSong.Length / 60;
-				var totalSeconds = currentSong.Length % 60;
-
-				return $"{minutes:D2}:{seconds:D2} / {totalMinutes:D2}:{totalSeconds:D2}";
-			};
-
+			panel.Get<LabelWidget>("TIME_LABEL").GetText = () => "";
 			var noSongPlaying = modData.Translation.GetString(NoSongPlaying);
 			var musicTitle = panel.GetOrNull<LabelWidget>("TITLE_LABEL");
 			if (musicTitle != null)
 				musicTitle.GetText = () => currentSong != null ? currentSong.Title : noSongPlaying;
 
 			var musicSlider = panel.Get<SliderWidget>("MUSIC_SLIDER");
-			musicSlider.OnChange += x => Game.Sound.MusicVolume = x;
-			musicSlider.Value = Game.Sound.MusicVolume;
 
 			var songWatcher = widget.GetOrNull<LogicTickerWidget>("SONG_WATCHER");
 			if (songWatcher != null)
 			{
 				songWatcher.OnTick = () =>
 				{
-					if (musicPlaylist.CurrentSongIsBackground && currentSong != null)
-						currentSong = null;
-
-					if (Game.Sound.CurrentMusic == null || currentSong == Game.Sound.CurrentMusic || musicPlaylist.CurrentSongIsBackground)
-						return;
-
-					currentSong = Game.Sound.CurrentMusic;
+					currentSong = null;
 				};
 			}
 

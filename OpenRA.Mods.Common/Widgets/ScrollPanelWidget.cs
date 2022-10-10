@@ -386,14 +386,6 @@ namespace OpenRA.Mods.Common.Widgets
 				thumbPressed = thumbRect.Contains(mi.Location);
 				if (thumbPressed)
 					lastMouseLocation = mi.Location;
-
-				if (mi.Event == MouseInputEvent.Down)
-				{
-					if (thumbPressed || (upPressed && !upDisabled) || (downPressed && !downDisabled))
-						Game.Sound.PlayNotification(modRules, null, "Sounds", ClickSound, null);
-					else if ((upPressed && upDisabled) || (downPressed && downDisabled))
-						Game.Sound.PlayNotification(modRules, null, "Sounds", ClickDisabledSound, null);
-				}
 			}
 
 			return upPressed || downPressed || thumbPressed;

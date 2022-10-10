@@ -98,18 +98,11 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			if (button.Pause && world.LobbyInfo.NonBotClients.Count() == 1)
 				world.SetPauseState(true);
 
-			var cachedDisableWorldSounds = Game.Sound.DisableWorldSounds;
-			if (button.DisableWorldSounds)
-				Game.Sound.DisableWorldSounds = true;
-
 			widgetArgs = widgetArgs ?? new WidgetArgs();
 			widgetArgs.Add("onExit", () =>
 			{
 				if (button.HideIngameUI)
 					worldRoot.IsVisible = () => true;
-
-				if (button.DisableWorldSounds)
-					Game.Sound.DisableWorldSounds = cachedDisableWorldSounds;
 
 				if (button.Pause && world.LobbyInfo.NonBotClients.Count() == 1)
 					world.SetPauseState(cachedPause);

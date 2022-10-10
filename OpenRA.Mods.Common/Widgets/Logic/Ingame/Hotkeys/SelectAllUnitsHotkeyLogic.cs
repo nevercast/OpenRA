@@ -67,8 +67,6 @@ namespace OpenRA.Mods.Common.Widgets.Logic.Ingame
 
 			selection.Combine(world, newSelection, false, false);
 
-			Game.Sound.PlayNotification(world.Map.Rules, world.LocalPlayer, "Sounds", ClickSound, null);
-
 			return true;
 		}
 	}

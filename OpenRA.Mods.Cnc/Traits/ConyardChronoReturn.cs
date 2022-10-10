@@ -191,8 +191,6 @@ namespace OpenRA.Mods.Cnc.Traits
 
 			if (controlgroup.HasValue)
 				self.World.ControlGroups.AddToControlGroup(a, controlgroup.Value);
-
-			Game.Sound.Play(SoundType.World, info.ChronoshiftSound, self.World.Map.CenterOfCell(destination.Value));
 			self.Dispose();
 		}
 
@@ -215,8 +213,6 @@ namespace OpenRA.Mods.Cnc.Traits
 			// Trigger screen desaturate effect
 			foreach (var cpa in self.World.ActorsWithTrait<ChronoshiftPaletteEffect>())
 				cpa.Trait.Enable();
-
-			Game.Sound.Play(SoundType.World, info.ChronoshiftSound, self.CenterPosition);
 
 			if (chronosphere != null && self != chronosphere && !chronosphere.Disposed)
 			{

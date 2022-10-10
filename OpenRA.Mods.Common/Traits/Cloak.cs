@@ -198,7 +198,6 @@ namespace OpenRA.Mods.Common.Traits
 				if (!(firstTick && Info.InitialDelay == 0) && (otherCloaks == null || !otherCloaks.Any(a => a.Cloaked)))
 				{
 					var pos = self.CenterPosition;
-					Game.Sound.Play(SoundType.World, Info.CloakSound, self.CenterPosition);
 
 					Func<WPos> posfunc = () => self.CenterPosition + Info.EffectOffset;
 					if (!Info.EffectTracksActor)
@@ -223,7 +222,6 @@ namespace OpenRA.Mods.Common.Traits
 				if (!(firstTick && Info.InitialDelay == 0) && (otherCloaks == null || !otherCloaks.Any(a => a.Cloaked)))
 				{
 					var pos = self.CenterPosition;
-					Game.Sound.Play(SoundType.World, Info.CloakSound, pos);
 
 					Func<WPos> posfunc = () => self.CenterPosition + Info.EffectOffset;
 					if (!Info.EffectTracksActor)

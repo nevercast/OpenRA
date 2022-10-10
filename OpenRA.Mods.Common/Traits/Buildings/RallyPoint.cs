@@ -103,7 +103,6 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			if (order.OrderID == OrderID)
 			{
-				Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Speech", Info.Notification, self.Owner.Faction.InternalName);
 				TextNotificationsManager.AddTransientLine(Info.TextNotification, self.Owner);
 
 				return new Order(order.OrderID, self, target, queued)

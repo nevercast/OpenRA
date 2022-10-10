@@ -37,24 +37,9 @@ namespace OpenRA.Mods.Common.Scripting
 
 			w.SetPauseState(true);
 
-			// Mute world sounds
-			var oldModifier = Game.Sound.SoundVolumeModifier;
-
-			// TODO: this also modifies vqa audio
-			// Game.Sound.SoundVolumeModifier = 0f;
-
-			// Stop music while fmv plays
-			var music = Game.Sound.MusicPlaying;
-			if (music)
-				Game.Sound.PauseMusic();
-
 			player.PlayThen(() =>
 			{
-				if (music)
-					Game.Sound.PlayMusic();
-
 				Ui.CloseWindow();
-				Game.Sound.SoundVolumeModifier = oldModifier;
 				w.SetPauseState(false);
 				onComplete();
 			});

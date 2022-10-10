@@ -36,9 +36,6 @@ namespace OpenRA.Mods.Cnc.Effects
 			weaponDelay = delay;
 			anim = new Animation(world, effect);
 			anim.PlayThen(sequence, () => Finish(world));
-
-			if (weapon.Report != null && weapon.Report.Length > 0)
-				Game.Sound.Play(SoundType.World, weapon.Report, world, launchPos);
 		}
 
 		public void Tick(World world)

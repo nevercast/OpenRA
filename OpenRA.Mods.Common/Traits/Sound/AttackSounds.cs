@@ -42,8 +42,6 @@ namespace OpenRA.Mods.Common.Traits.Sound
 
 		void PlaySound(Actor self)
 		{
-			if (info.Sounds.Length > 0)
-				Game.Sound.Play(SoundType.World, info.Sounds, self.World, self.CenterPosition);
 		}
 
 		void INotifyAttack.Attacking(Actor self, in Target target, Armament a, Barrel barrel)

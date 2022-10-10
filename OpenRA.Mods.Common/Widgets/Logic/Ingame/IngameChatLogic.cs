@@ -304,9 +304,6 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			chatScrollPanel.AddChild(chatLine);
 			if (scrolledToBottom)
 				chatScrollPanel.ScrollToBottom(smooth: true);
-
-			if (!suppressSound && !IsNotificationMuted(notification))
-				Game.Sound.PlayNotification(modRules, null, "Sounds", chatLineSound, null);
 		}
 
 		public override void Tick()

@@ -47,8 +47,6 @@ namespace OpenRA.Mods.Common.Activities
 
 			if (showTicks && refund > 0 && self.Owner.IsAlliedWith(self.World.RenderPlayer))
 				self.World.AddFrameEndTask(w => w.Add(new FloatingText(self.CenterPosition, self.Owner.Color, FloatingText.FormatCashTick(refund), 30)));
-
-			Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Speech", sellableInfo.Notification, self.Owner.Faction.InternalName);
 			TextNotificationsManager.AddTransientLine(sellableInfo.TextNotification, self.Owner);
 
 			self.Dispose();

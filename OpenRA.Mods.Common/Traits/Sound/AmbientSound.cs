@@ -77,27 +77,10 @@ namespace OpenRA.Mods.Common.Traits.Sound
 
 		void StartSound(Actor self)
 		{
-			var sound = Info.SoundFiles.RandomOrDefault(Game.CosmeticRandom);
-
-			ISound s;
-			if (self.OccupiesSpace != null)
-			{
-				cachedPosition = self.CenterPosition;
-				s = loop ? Game.Sound.PlayLooped(SoundType.World, sound, cachedPosition) :
-					Game.Sound.Play(SoundType.World, sound, self.CenterPosition);
-			}
-			else
-				s = loop ? Game.Sound.PlayLooped(SoundType.World, sound) :
-					Game.Sound.Play(SoundType.World, sound);
-
-			currentSounds.Add(s);
 		}
 
 		void StopSound()
 		{
-			foreach (var s in currentSounds)
-				Game.Sound.StopSound(s);
-
 			currentSounds.Clear();
 		}
 

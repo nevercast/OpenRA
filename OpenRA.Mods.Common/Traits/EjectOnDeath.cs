@@ -91,8 +91,6 @@ namespace OpenRA.Mods.Common.Traits
 
 				if (!inAir)
 					pilot.TraitOrDefault<Mobile>()?.Nudge(pilot);
-				else
-					Game.Sound.Play(SoundType.World, Info.ChuteSound, cp);
 			});
 		}
 	}

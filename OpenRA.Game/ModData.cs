@@ -147,8 +147,6 @@ namespace OpenRA
 			ChromeMetrics.Initialize(this);
 			ChromeProvider.Initialize(this);
 
-			Game.Sound.Initialize(SoundLoaders, fileSystem);
-
 			CursorProvider = new CursorProvider(this);
 		}
 

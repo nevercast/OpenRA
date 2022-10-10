@@ -260,8 +260,6 @@ namespace OpenRA.Mods.Common.Activities
 			{
 				if (host.Actor.Owner != self.Owner)
 					host.Actor.Owner.PlayerActor.TraitOrDefault<PlayerExperience>()?.GiveExperience(repairsUnits.Info.PlayerExperience);
-
-				Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Speech", repairsUnits.Info.FinishRepairingNotification, self.Owner.Faction.InternalName);
 				TextNotificationsManager.AddTransientLine(repairsUnits.Info.FinishRepairingTextNotification, self.Owner);
 
 				activeResupplyTypes &= ~ResupplyType.Repair;
@@ -279,7 +277,6 @@ namespace OpenRA.Mods.Common.Activities
 				if (!played)
 				{
 					played = true;
-					Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Speech", repairsUnits.Info.StartRepairingNotification, self.Owner.Faction.InternalName);
 					TextNotificationsManager.AddTransientLine(repairsUnits.Info.StartRepairingTextNotification, self.Owner);
 				}
 
@@ -307,7 +304,6 @@ namespace OpenRA.Mods.Common.Activities
 					{
 						ammoPool.RemainingTicks = ammoPool.Info.ReloadDelay;
 						if (!string.IsNullOrEmpty(ammoPool.Info.RearmSound))
-							Game.Sound.PlayToPlayer(SoundType.World, self.Owner, ammoPool.Info.RearmSound, self.CenterPosition);
 
 						ammoPool.GiveAmmo(self, ammoPool.Info.ReloadCount);
 					}

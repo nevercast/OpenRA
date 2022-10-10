@@ -70,8 +70,6 @@ namespace OpenRA.Mods.Common.Widgets
 			{
 				// OnMouseDown returns false if the button shouldn't be pressed
 				OnMouseDown(mi);
-
-				Game.Sound.PlayNotification(modRules, null, "Sounds", ClickSound, null);
 			}
 
 			return false;

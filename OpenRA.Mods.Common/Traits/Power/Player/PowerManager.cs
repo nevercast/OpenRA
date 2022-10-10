@@ -162,7 +162,6 @@ namespace OpenRA.Mods.Common.Traits
 
 			if (isLowPower && Game.RunTime > lastPowerAdviceTime + info.AdviceInterval)
 			{
-				Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Speech", info.SpeechNotification, self.Owner.Faction.InternalName);
 				TextNotificationsManager.AddTransientLine(info.TextNotification, self.Owner);
 
 				lastPowerAdviceTime = Game.RunTime;

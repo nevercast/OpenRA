@@ -87,8 +87,6 @@ namespace OpenRA.Mods.Common.Traits
 			if (!ammoPool.HasFullAmmo && --remainingTicks == 0)
 			{
 				remainingTicks = Util.ApplyPercentageModifiers(reloadDelay, modifiers.Select(m => m.GetReloadAmmoModifier()));
-				if (!string.IsNullOrEmpty(sound))
-					Game.Sound.PlayToPlayer(SoundType.World, self.Owner, sound, self.CenterPosition);
 
 				ammoPool.GiveAmmo(self, reloadCount);
 			}

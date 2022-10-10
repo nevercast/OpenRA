@@ -115,7 +115,6 @@ namespace OpenRA.Mods.Common.Traits
 						cargo.Delivered(self);
 
 					self.World.AddFrameEndTask(ww => DoProduction(self, producee, exit, productionType, inits));
-					Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Speech", info.ReadyAudio, self.Owner.Faction.InternalName);
 					TextNotificationsManager.AddTransientLine(info.ReadyTextNotification, self.Owner);
 				}));
 

@@ -46,8 +46,6 @@ namespace OpenRA.Mods.Common.Widgets.Logic.Ingame
 			if (!selection.Actors.Any())
 			{
 				TextNotificationsManager.AddFeedbackLine("Nothing selected.");
-				Game.Sound.PlayNotification(world.Map.Rules, world.LocalPlayer, "Sounds", ClickDisabledSound, null);
-
 				return false;
 			}
 
@@ -88,8 +86,6 @@ namespace OpenRA.Mods.Common.Widgets.Logic.Ingame
 			}
 
 			selection.Combine(world, newSelection, true, false);
-
-			Game.Sound.PlayNotification(world.Map.Rules, world.LocalPlayer, "Sounds", ClickSound, null);
 
 			return true;
 		}

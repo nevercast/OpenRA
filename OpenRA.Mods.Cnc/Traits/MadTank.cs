@@ -212,9 +212,6 @@ namespace OpenRA.Mods.Cnc.Traits
 					}
 				}
 
-				if (ticks == mad.info.ChargeDelay)
-					Game.Sound.Play(SoundType.World, mad.info.ChargeSound, self.CenterPosition);
-
 				return ticks == mad.info.ChargeDelay + mad.info.DetonationDelay;
 			}
 
@@ -222,8 +219,6 @@ namespace OpenRA.Mods.Cnc.Traits
 			{
 				if (!mad.initiated)
 					return;
-
-				Game.Sound.Play(SoundType.World, mad.info.DetonationSound, self.CenterPosition);
 
 				self.World.AddFrameEndTask(w =>
 				{

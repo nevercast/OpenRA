@@ -109,9 +109,6 @@ namespace OpenRA.Mods.Cnc.Traits
 				foreach (var notify in self.TraitsImplementing<INotifyTeslaCharging>())
 					notify.Charging(self, target);
 
-				if (!string.IsNullOrEmpty(attack.info.ChargeAudio))
-					Game.Sound.Play(SoundType.World, attack.info.ChargeAudio, self.CenterPosition);
-
 				QueueChild(new Wait(attack.info.InitialChargeDelay));
 				QueueChild(new ChargeFire(attack, target));
 				return false;

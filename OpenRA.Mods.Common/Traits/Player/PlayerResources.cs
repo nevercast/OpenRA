@@ -185,7 +185,6 @@ namespace OpenRA.Mods.Common.Traits
 				if (notifyLowFunds && Game.RunTime > lastNotificationTime + Info.InsufficientFundsNotificationInterval)
 				{
 					lastNotificationTime = Game.RunTime;
-					Game.Sound.PlayNotification(owner.World.Map.Rules, owner, "Speech", Info.InsufficientFundsNotification, owner.Faction.InternalName);
 					TextNotificationsManager.AddTransientLine(Info.InsufficientFundsTextNotification, owner);
 				}
 

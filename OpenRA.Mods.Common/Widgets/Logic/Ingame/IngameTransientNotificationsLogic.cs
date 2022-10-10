@@ -69,9 +69,6 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 		void AddNotification(TextNotification notification, bool suppressSound = false)
 		{
 			displayWidget.AddNotification(notification);
-
-			if (!suppressSound && !string.IsNullOrEmpty(transientLineSound))
-				Game.Sound.PlayNotification(modRules, null, "Sounds", transientLineSound, null);
 		}
 
 		static bool IsNotificationEligible(TextNotification notification)

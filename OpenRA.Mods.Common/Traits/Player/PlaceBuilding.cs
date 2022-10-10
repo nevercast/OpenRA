@@ -127,9 +127,6 @@ namespace OpenRA.Mods.Common.Traits
 						new PlaceBuildingInit()
 					});
 
-					foreach (var s in buildingInfo.BuildSounds)
-						Game.Sound.PlayToPlayer(SoundType.World, order.Player, s, placed.CenterPosition);
-
 					// Build the connection segments
 					var segmentType = actorInfo.TraitInfo<LineBuildInfo>().SegmentType;
 					if (string.IsNullOrEmpty(segmentType))
@@ -180,8 +177,6 @@ namespace OpenRA.Mods.Common.Traits
 							return;
 
 						pluggable.EnablePlug(a, plugInfo.Type);
-						foreach (var s in buildingInfo.BuildSounds)
-							Game.Sound.PlayToPlayer(SoundType.World, order.Player, s, a.CenterPosition);
 					}
 				}
 				else
@@ -197,9 +192,6 @@ namespace OpenRA.Mods.Common.Traits
 						new FactionInit(faction),
 						new PlaceBuildingInit()
 					});
-
-					foreach (var s in buildingInfo.BuildSounds)
-						Game.Sound.PlayToPlayer(SoundType.World, order.Player, s, building.CenterPosition);
 				}
 
 				if (producer.Actor != null)
@@ -229,7 +221,6 @@ namespace OpenRA.Mods.Common.Traits
 
 		void PlayNotification(Actor self)
 		{
-			Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Speech", info.NewOptionsNotification, self.Owner.Faction.InternalName);
 			TextNotificationsManager.AddTransientLine(info.NewOptionsTextNotification, self.Owner);
 
 			triggerNotification = false;

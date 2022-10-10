@@ -89,12 +89,6 @@ namespace OpenRA.Mods.Common.Traits
 
 		public virtual void Activate(Actor collector)
 		{
-			Game.Sound.Play(SoundType.World, Info.Sound, self.CenterPosition);
-
-			if (!string.IsNullOrEmpty(Info.Notification))
-				Game.Sound.PlayNotification(self.World.Map.Rules, collector.Owner, "Speech",
-					Info.Notification, collector.Owner.Faction.InternalName);
-
 			TextNotificationsManager.AddTransientLine(Info.TextNotification, collector.Owner);
 
 			if (Info.Image != null && Info.Sequence != null)

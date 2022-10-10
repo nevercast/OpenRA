@@ -157,9 +157,6 @@ namespace OpenRA.Mods.Common.Traits
 				if (ticksRemaining == m * 60 * ticksPerSecond)
 				{
 					TextNotificationsManager.AddSystemLine(Notification.F(m, m > 1 ? "s" : null));
-
-					var faction = self.World.LocalPlayer?.Faction.InternalName;
-					Game.Sound.PlayNotification(self.World.Map.Rules, self.World.LocalPlayer, "Speech", info.TimeLimitWarnings[m], faction);
 				}
 			}
 		}

@@ -56,10 +56,6 @@ namespace OpenRA.Mods.Common.Traits.Sound
 			if (!Info.AnnounceNeutrals && !self.AppearsHostileTo(discoverer.PlayerActor))
 				return;
 
-			// Audio notification
-			if (discoverer != null && !string.IsNullOrEmpty(Info.Notification))
-				Game.Sound.PlayNotification(self.World.Map.Rules, discoverer, "Speech", Info.Notification, discoverer.Faction.InternalName);
-
 			if (discoverer != null)
 				TextNotificationsManager.AddTransientLine(Info.TextNotification, discoverer);
 

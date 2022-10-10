@@ -281,7 +281,6 @@ namespace OpenRA.Mods.Common.Projectiles
 
 				ticks = 0;
 				source = pos;
-				Game.Sound.Play(SoundType.World, info.BounceSound, source);
 				remainingBounces--;
 			}
 

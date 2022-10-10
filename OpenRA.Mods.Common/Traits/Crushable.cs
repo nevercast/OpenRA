@@ -54,8 +54,6 @@ namespace OpenRA.Mods.Common.Traits
 			if (!CrushableInner(crushClasses, crusher.Owner))
 				return;
 
-			Game.Sound.Play(SoundType.World, Info.CrushSound, crusher.CenterPosition);
-
 			var crusherMobile = crusher.TraitOrDefault<Mobile>();
 			self.Kill(crusher, crusherMobile != null ? crusherMobile.Info.LocomotorInfo.CrushDamageTypes : default(BitSet<DamageType>));
 		}

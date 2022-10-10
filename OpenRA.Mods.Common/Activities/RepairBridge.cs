@@ -76,8 +76,6 @@ namespace OpenRA.Mods.Common.Activities
 				enterLegacyHut.Repair(self);
 			else if (enterHut != null)
 				enterHut.Repair(self);
-
-			Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Speech", speechNotification, self.Owner.Faction.InternalName);
 			TextNotificationsManager.AddTransientLine(textNotification, self.Owner);
 
 			if (enterBehaviour == EnterBehaviour.Dispose)

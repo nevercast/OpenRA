@@ -40,21 +40,6 @@ namespace OpenRA.Mods.Common.Traits.Sound
 
 		void INotifyDamageStateChanged.DamageStateChanged(Actor self, AttackInfo e)
 		{
-			if (!info.DamageTypes.IsEmpty && !e.Damage.DamageTypes.Overlaps(info.DamageTypes))
-				return;
-
-			var rand = Game.CosmeticRandom;
-
-			if (e.DamageState == DamageState.Dead)
-			{
-				var sound = info.DestroyedSounds.RandomOrDefault(rand);
-				Game.Sound.Play(SoundType.World, sound, self.CenterPosition);
-			}
-			else if (e.DamageState >= DamageState.Heavy && e.PreviousDamageState < DamageState.Heavy)
-			{
-				var sound = info.DamagedSounds.RandomOrDefault(rand);
-				Game.Sound.Play(SoundType.World, sound, self.CenterPosition);
-			}
 		}
 	}
 }

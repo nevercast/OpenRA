@@ -38,20 +38,17 @@ namespace OpenRA.Mods.Common.Scripting
 		[Desc("Play an announcer voice listed in notifications.yaml")]
 		public void PlaySpeechNotification(Player player, string notification)
 		{
-			Game.Sound.PlayNotification(world.Map.Rules, player, "Speech", notification, player != null ? player.Faction.InternalName : null);
 		}
 
 		[Desc("Play a sound listed in notifications.yaml")]
 		public void PlaySoundNotification(Player player, string notification)
 		{
-			Game.Sound.PlayNotification(world.Map.Rules, player, "Sounds", notification, player != null ? player.Faction.InternalName : null);
 		}
 
 		[Desc("Play a sound file")]
 		public void PlaySound(string file)
 		{
 			// TODO: Investigate how scripts use this function, and think about exposing the UI vs World distinction if needed
-			Game.Sound.Play(SoundType.World, file);
 		}
 
 		[Desc("Play track defined in music.yaml or map.yaml, or keep track empty for playing a random song.")]

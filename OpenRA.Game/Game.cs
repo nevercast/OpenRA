@@ -47,7 +47,6 @@ namespace OpenRA
 		public static MersenneTwister CosmeticRandom = new MersenneTwister(); // not synced
 
 		public static Renderer Renderer;
-		public static Sound Sound;
 
 		public static string EngineVersion { get; private set; }
 		public static LocalPlayerProfile LocalPlayerProfile;
@@ -350,7 +349,6 @@ namespace OpenRA
 			Log.AddChannel("perf", "perf.log");
 			Log.AddChannel("debug", "debug.log");
 			Log.AddChannel("server", "server.log", true);
-			Log.AddChannel("sound", "sound.log");
 			Log.AddChannel("graphics", "graphics.log");
 			Log.AddChannel("geoip", "geoip.log");
 			Log.AddChannel("nat", "nat.log");
@@ -382,8 +380,6 @@ namespace OpenRA
 
 					var platform = (IPlatform)platformType.GetConstructor(Type.EmptyTypes).Invoke(null);
 					Renderer = new Renderer(platform, Settings.Graphics);
-					Sound = new Sound(platform, Settings.Sound);
-
 					break;
 				}
 				catch (Exception e)
@@ -392,8 +388,6 @@ namespace OpenRA
 					Console.WriteLine("Renderer initialization failed. Check graphics.log for details.");
 
 					Renderer?.Dispose();
-
-					Sound?.Dispose();
 				}
 			}
 
@@ -468,8 +462,6 @@ namespace OpenRA
 				throw new InvalidOperationException($"Unknown or invalid mod '{mod}'.");
 
 			Console.WriteLine($"Loading mod: {mod}");
-
-			Sound.StopVideo();
 
 			ModData = new ModData(Mods[mod], Mods, true);
 
@@ -609,8 +601,6 @@ namespace OpenRA
 				{
 					orderManager.LastTickTime.AdvanceTickTime(tick);
 
-					Sound.Tick();
-
 					Sync.RunUnsynced(world, orderManager.TickImmediate);
 
 					if (world == null)
@@ -691,7 +681,6 @@ namespace OpenRA
 				if (worldRenderer != null && !worldRenderer.World.IsLoadingGameSave)
 				{
 					Renderer.BeginWorld(worldRenderer.Viewport.Rectangle);
-					Sound.SetListenerPosition(worldRenderer.Viewport.CenterPosition);
 					using (new PerfSample("render_world"))
 						worldRenderer.Draw();
 				}
@@ -774,7 +763,6 @@ namespace OpenRA
 			ModData.Dispose();
 			ChromeProvider.Deinitialize();
 
-			Sound.Dispose();
 			Renderer.Dispose();
 
 			OnQuit();

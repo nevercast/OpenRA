@@ -296,15 +296,12 @@ namespace OpenRA.Mods.Common.Widgets
 		{
 			if (PickUpCompletedBuildingIcon(icon, item))
 			{
-				Game.Sound.PlayNotification(World.Map.Rules, World.LocalPlayer, "Sounds", ClickSound, null);
 				return true;
 			}
 
 			if (item != null && item.Paused)
 			{
 				// Resume a paused item
-				Game.Sound.PlayNotification(World.Map.Rules, World.LocalPlayer, "Sounds", ClickSound, null);
-				Game.Sound.PlayNotification(World.Map.Rules, World.LocalPlayer, "Speech", CurrentQueue.Info.QueuedAudio, World.LocalPlayer.Faction.InternalName);
 				TextNotificationsManager.AddTransientLine(CurrentQueue.Info.QueuedTextNotification, World.LocalPlayer);
 
 				World.IssueOrder(Order.PauseProduction(CurrentQueue.Actor, icon.Name, false));
@@ -316,12 +313,10 @@ namespace OpenRA.Mods.Common.Widgets
 			if (buildable != null)
 			{
 				// Queue a new item
-				Game.Sound.PlayNotification(World.Map.Rules, World.LocalPlayer, "Sounds", ClickSound, null);
 				var canQueue = CurrentQueue.CanQueue(buildable, out var notification, out var textNotification);
 
 				if (!CurrentQueue.AllQueued().Any())
 				{
-					Game.Sound.PlayNotification(World.Map.Rules, World.LocalPlayer, "Speech", notification, World.LocalPlayer.Faction.InternalName);
 					TextNotificationsManager.AddTransientLine(textNotification, World.LocalPlayer);
 				}
 
@@ -341,12 +336,9 @@ namespace OpenRA.Mods.Common.Widgets
 			if (item == null)
 				return false;
 
-			Game.Sound.PlayNotification(World.Map.Rules, World.LocalPlayer, "Sounds", ClickSound, null);
-
 			if (CurrentQueue.Info.DisallowPaused || item.Paused || item.Done || item.TotalCost == item.RemainingCost)
 			{
 				// Instantly cancel items that haven't started, have finished, or if the queue doesn't support pausing
-				Game.Sound.PlayNotification(World.Map.Rules, World.LocalPlayer, "Speech", CurrentQueue.Info.CancelledAudio, World.LocalPlayer.Faction.InternalName);
 				TextNotificationsManager.AddTransientLine(CurrentQueue.Info.CancelledTextNotification, World.LocalPlayer);
 
 				World.IssueOrder(Order.CancelProduction(CurrentQueue.Actor, icon.Name, handleCount));
@@ -354,7 +346,6 @@ namespace OpenRA.Mods.Common.Widgets
 			else
 			{
 				// Pause an existing item
-				Game.Sound.PlayNotification(World.Map.Rules, World.LocalPlayer, "Speech", CurrentQueue.Info.OnHoldAudio, World.LocalPlayer.Faction.InternalName);
 				TextNotificationsManager.AddTransientLine(CurrentQueue.Info.OnHoldTextNotification, World.LocalPlayer);
 
 				World.IssueOrder(Order.PauseProduction(CurrentQueue.Actor, icon.Name, true));
@@ -369,8 +360,6 @@ namespace OpenRA.Mods.Common.Widgets
 				return false;
 
 			// Directly cancel, skipping "on-hold"
-			Game.Sound.PlayNotification(World.Map.Rules, World.LocalPlayer, "Sounds", ClickSound, null);
-			Game.Sound.PlayNotification(World.Map.Rules, World.LocalPlayer, "Speech", CurrentQueue.Info.CancelledAudio, World.LocalPlayer.Faction.InternalName);
 			TextNotificationsManager.AddTransientLine(CurrentQueue.Info.CancelledTextNotification, World.LocalPlayer);
 
 			World.IssueOrder(Order.CancelProduction(CurrentQueue.Actor, icon.Name, handleCount));
@@ -385,15 +374,17 @@ namespace OpenRA.Mods.Common.Widgets
 			// PERF: avoid an unnecessary enumeration by casting back to its known type
 			var cancelCount = modifiers.HasModifier(Modifiers.Ctrl) ? ((List<ProductionItem>)CurrentQueue.AllQueued()).Count : startCount;
 			var item = icon.Queued.FirstOrDefault();
-			var handled = btn == MouseButton.Left ? HandleLeftClick(item, icon, startCount, modifiers)
-				: btn == MouseButton.Right ? HandleRightClick(item, icon, cancelCount)
-				: btn == MouseButton.Middle ? HandleMiddleClick(item, icon, cancelCount)
-				: false;
-
-			if (!handled)
-				Game.Sound.PlayNotification(World.Map.Rules, World.LocalPlayer, "Sounds", ClickDisabledSound, null);
-
-			return true;
+			switch (btn)
+			{
+				case MouseButton.Left:
+					return HandleLeftClick(item, icon, startCount, modifiers);
+				case MouseButton.Right:
+					return HandleRightClick(item, icon, cancelCount);
+				case MouseButton.Middle:
+					return HandleMiddleClick(item, icon, cancelCount);
+				default:
+					return false;
+			}
 		}
 
 		public override bool HandleKeyPress(KeyInput e)
@@ -429,8 +420,6 @@ namespace OpenRA.Mods.Common.Widgets
 				viewport.Center(selection.Actors);
 			else
 				selection.Combine(World, new[] { facility }, false, true);
-
-			Game.Sound.PlayNotification(World.Map.Rules, null, "Sounds", ClickSound, null);
 			return true;
 		}
 

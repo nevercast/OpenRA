@@ -164,8 +164,6 @@ namespace OpenRA.Mods.Common.Traits
 			var player = self.World.LocalPlayer;
 			if (player != null && player != self.Owner)
 			{
-				Game.Sound.Play(SoundType.UI, Info.DetectedSound);
-				Game.Sound.PlayNotification(self.World.Map.Rules, player, "Speech", info.DetectedSpeechNotification, player.Faction.InternalName);
 				TextNotificationsManager.AddTransientLine(info.DetectedTextNotification, player);
 			}
 		}
@@ -177,19 +175,11 @@ namespace OpenRA.Mods.Common.Traits
 
 		public virtual void Charging(Actor self, string key)
 		{
-			Game.Sound.PlayToPlayer(SoundType.UI, self.Owner, Info.BeginChargeSound);
-			Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Speech",
-				Info.BeginChargeSpeechNotification, self.Owner.Faction.InternalName);
-
 			TextNotificationsManager.AddTransientLine(Info.BeginChargeTextNotification, self.Owner);
 		}
 
 		public virtual void Charged(Actor self, string key)
 		{
-			Game.Sound.PlayToPlayer(SoundType.UI, self.Owner, Info.EndChargeSound);
-			Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Speech",
-				Info.EndChargeSpeechNotification, self.Owner.Faction.InternalName);
-
 			TextNotificationsManager.AddTransientLine(Info.EndChargeTextNotification, self.Owner);
 
 			foreach (var notify in self.TraitsImplementing<INotifySupportPower>())
@@ -224,12 +214,8 @@ namespace OpenRA.Mods.Common.Traits
 				return;
 
 			var isAllied = Self.Owner.IsAlliedWith(localPlayer);
-			Game.Sound.Play(SoundType.UI, isAllied ? Info.LaunchSound : Info.IncomingSound);
 
 			var toPlayer = isAllied ? localPlayer ?? Self.Owner : localPlayer;
-			var speech = isAllied ? Info.LaunchSpeechNotification : Info.IncomingSpeechNotification;
-			Game.Sound.PlayNotification(Self.World.Map.Rules, toPlayer, "Speech", speech, toPlayer.Faction.InternalName);
-
 			TextNotificationsManager.AddTransientLine(isAllied ? Info.LaunchTextNotification : Info.IncomingTextNotification, toPlayer);
 		}
 

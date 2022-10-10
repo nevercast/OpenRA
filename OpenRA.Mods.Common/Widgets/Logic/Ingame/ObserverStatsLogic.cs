@@ -210,7 +210,6 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 					{
 						if (statsHotkeys[i].IsActivatedBy(e))
 						{
-							Game.Sound.PlayNotification(modData.DefaultRules, null, "Sounds", clickSound, null);
 							statsDropDownOptions[i].OnClick();
 							return true;
 						}

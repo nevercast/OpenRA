@@ -74,12 +74,6 @@ namespace OpenRA.Mods.Cnc.Traits
 			targetResources.TakeCash(toTake);
 			spyResources.GiveCash(toGive);
 
-			if (info.InfiltratedNotification != null)
-				Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Speech", info.InfiltratedNotification, self.Owner.Faction.InternalName);
-
-			if (info.InfiltrationNotification != null)
-				Game.Sound.PlayNotification(self.World.Map.Rules, infiltrator.Owner, "Speech", info.InfiltrationNotification, infiltrator.Owner.Faction.InternalName);
-
 			TextNotificationsManager.AddTransientLine(info.InfiltratedTextNotification, self.Owner);
 			TextNotificationsManager.AddTransientLine(info.InfiltrationTextNotification, infiltrator.Owner);
 

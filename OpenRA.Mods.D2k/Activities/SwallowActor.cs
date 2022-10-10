@@ -77,7 +77,6 @@ namespace OpenRA.Mods.D2k.Activities
 
 			var attackPosition = self.CenterPosition;
 			var affectedPlayers = targets.Select(x => x.Owner).Distinct().ToList();
-			Game.Sound.Play(SoundType.World, swallow.Info.WormAttackSound, self.CenterPosition);
 
 			foreach (var player in affectedPlayers)
 				self.World.AddFrameEndTask(w => w.Add(new MapNotificationEffect(player, "Speech", swallow.Info.WormAttackNotification, 25, true, attackPosition, Color.Red)));

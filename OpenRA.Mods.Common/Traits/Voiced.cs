@@ -40,36 +40,17 @@ namespace OpenRA.Mods.Common.Traits
 
 		bool IVoiced.PlayVoice(Actor self, string phrase, string variant)
 		{
-			if (phrase == null)
-				return false;
-
-			if (string.IsNullOrEmpty(Info.VoiceSet))
-				return false;
-
-			var type = Info.VoiceSet.ToLowerInvariant();
-			var volume = Info.Volume;
-			return Game.Sound.PlayPredefined(SoundType.World, self.World.Map.Rules, null, self, type, phrase, variant, true, WPos.Zero, volume, true);
+			return false;
 		}
 
 		bool IVoiced.PlayVoiceLocal(Actor self, string phrase, string variant, float volume)
 		{
-			if (phrase == null)
-				return false;
-
-			if (string.IsNullOrEmpty(Info.VoiceSet))
-				return false;
-
-			var type = Info.VoiceSet.ToLowerInvariant();
-			return Game.Sound.PlayPredefined(SoundType.World, self.World.Map.Rules, null, self, type, phrase, variant, false, self.CenterPosition, volume, true);
+			return false;
 		}
 
 		bool IVoiced.HasVoice(Actor self, string voice)
 		{
-			if (string.IsNullOrEmpty(Info.VoiceSet))
-				return false;
-
-			var voices = self.World.Map.Rules.Voices[Info.VoiceSet.ToLowerInvariant()];
-			return voices != null && voices.Voices.ContainsKey(voice);
+			return false;
 		}
 	}
 }

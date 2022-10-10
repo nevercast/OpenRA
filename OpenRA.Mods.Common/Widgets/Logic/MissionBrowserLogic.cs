@@ -336,22 +336,12 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			}
 		}
 
-		float cachedSoundVolume;
-		float cachedMusicVolume;
 		void MuteSounds()
 		{
-			cachedSoundVolume = Game.Sound.SoundVolume;
-			cachedMusicVolume = Game.Sound.MusicVolume;
-			Game.Sound.SoundVolume = Game.Sound.MusicVolume = 0;
 		}
 
 		void UnMuteSounds()
 		{
-			if (cachedSoundVolume > 0)
-				Game.Sound.SoundVolume = cachedSoundVolume;
-
-			if (cachedMusicVolume > 0)
-				Game.Sound.MusicVolume = cachedMusicVolume;
 		}
 
 		void PlayVideo(VideoPlayerWidget player, string video, PlayingVideo pv, Action onComplete = null)

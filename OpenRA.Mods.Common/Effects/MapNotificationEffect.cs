@@ -51,8 +51,6 @@ namespace OpenRA.Mods.Common.Effects
 			if (remainingDelay-- > 0)
 				return;
 
-			Game.Sound.PlayNotification(player.World.Map.Rules, player, category, notification, player.Faction.InternalName);
-
 			if (visible && radarPings != null && player == player.World.RenderPlayer)
 				radarPings.Add(() => true, pos, color, duration);
 
