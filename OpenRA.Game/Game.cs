@@ -842,7 +842,7 @@ namespace OpenRA
 			benchmark = new Benchmark(prefix);
 		}
 
-		public static void BotSkirmish(string launchMap, string argSeed, string bot1, string bot2)
+		public static void BotSkirmish(string launchMap, string argSeed, string[] bots)
 		{
 			var map = ModData.MapCache.SingleOrDefault(m => m.Uid == launchMap || Path.GetFileName(m.Package.Name) == launchMap);
 			if (map == null)
@@ -879,14 +879,12 @@ namespace OpenRA
 			var endpoint = server.GetEndpointForLocalConnection();
 
 			OrderManager om = null;
+			var botInitOrders = bots.Select((bot, idx) => Order.Command($"slot_bot Multi{idx} 0 {bot}"));
 			var setupOrders = new List<Order>
 			{
 				Order.Command("option gamespeed default"),
 				Order.Command($"state {Session.ClientState.NotReady}"),
 				Order.Command("spectate"),
-				Order.Command($"slot_bot Multi0 0 {bot1}"),
-				Order.Command($"slot_bot Multi1 0 {bot2}"),
-				Order.Command($"state {Session.ClientState.Ready}")
 			};
 
 			void OnLobbyReady()
@@ -894,6 +892,12 @@ namespace OpenRA
 					LobbyInfoChanged -= OnLobbyReady;
 					foreach (var o in setupOrders)
 							om.IssueOrder(o);
+
+					foreach (var o in botInitOrders)
+							om.IssueOrder(o);
+
+					// Start the game
+					om.IssueOrder(Order.Command($"state {Session.ClientState.Ready}"));
 			}
 
 			LobbyInfoChanged += OnLobbyReady;

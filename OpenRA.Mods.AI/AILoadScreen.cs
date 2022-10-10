@@ -29,12 +29,7 @@ namespace OpenRA.Mods.AI
 			var bots = (launchArgs.Bots ?? "rush,rush").Split(',');
 			var seed = launchArgs.Seed ?? "0";
 
-			if (bots.Length != 2)
-			{
-				throw new ArgumentException("Invalid bot skirmish argument. Expected format: BOT1,BOT2");
-			}
-
-			Game.BotSkirmish(map, seed, bots[0], bots[1]);
+			Game.BotSkirmish(map, seed, bots);
 		}
 
 		public void Dispose()
