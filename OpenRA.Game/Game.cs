@@ -909,6 +909,7 @@ namespace OpenRA
 					foreach (var o in setupOrders)
 							om.IssueOrder(o);
 			}
+
 			LobbyInfoChanged += OnLobbyReady;
 			om = JoinServer(endpoint, "");
 		}
