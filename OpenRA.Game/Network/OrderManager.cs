@@ -59,6 +59,8 @@ namespace OpenRA.Network
 		float tickScale = 1f;
 		bool outOfSync = false;
 
+		bool IsLocalGame => LobbyInfo.Slots.Count > 0 && NetFrameNumber > 0;
+
 		public struct ClientOrder
 		{
 			public int Client;
@@ -107,7 +109,9 @@ namespace OpenRA.Network
 			Connection = conn;
 			syncReport = new SyncReport(this);
 
-			LastTickTime = new TickTime(() => SuggestedTimestep, Game.RunTime);
+			LastTickTime = new TickTime(
+				() => IsLocalGame ? -1 : SuggestedTimestep,
+				Game.RunTime);
 		}
 
 		public void IssueOrders(Order[] orders)
