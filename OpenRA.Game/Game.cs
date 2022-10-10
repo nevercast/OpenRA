@@ -121,9 +121,8 @@ namespace OpenRA
 			});
 		}
 
-		// More accurate replacement for Environment.TickCount
-		static readonly Stopwatch Stopwatch = Stopwatch.StartNew();
-		public static long RunTime => Stopwatch.ElapsedMilliseconds;
+		private static long logicTicks = 0;
+		public static long RunTime => logicTicks;
 
 		public static int RenderFrame = 0;
 		public static int NetFrameNumber => OrderManager.NetFrameNumber;
@@ -642,6 +641,7 @@ namespace OpenRA
 
 		static void LogicTick()
 		{
+			logicTicks++;
 			PerformDelayedActions();
 
 			if (OrderManager.Connection is NetworkConnection nc && nc.ConnectionState != lastConnectionState)
