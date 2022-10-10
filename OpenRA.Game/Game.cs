@@ -17,7 +17,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime;
-using System.Threading;
 using OpenRA.Graphics;
 using OpenRA.Network;
 using OpenRA.Primitives;
@@ -121,8 +120,7 @@ namespace OpenRA
 			});
 		}
 
-		private static long logicTicks = 0;
-		public static long RunTime => logicTicks;
+		public static long RunTime { get; private set; } = 0;
 
 		public static int RenderFrame = 0;
 		public static int NetFrameNumber => OrderManager.NetFrameNumber;
@@ -641,7 +639,7 @@ namespace OpenRA
 
 		static void LogicTick()
 		{
-			logicTicks++;
+			RunTime++;
 			PerformDelayedActions();
 
 			if (OrderManager.Connection is NetworkConnection nc && nc.ConnectionState != lastConnectionState)
