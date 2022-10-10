@@ -24,6 +24,17 @@
 			"preLaunchTask": "build",
 		},
 		{
+			"name": "Launch (AI)",
+			"type": "coreclr",
+			"request": "launch",
+			"program": "${workspaceRoot}/bin/OpenRA.dll",
+			"windows": {
+				"program": "${workspaceRoot}/bin/OpenRA.exe",
+			},
+			"args": ["Game.Mod=ai", "Engine.EngineDir=..", "AI.Bots=rush,rush", "AI.Seed=1337"],
+			"preLaunchTask": "build",
+		},
+		{
 			"name": "Launch (D2k)",
 			"type": "coreclr",
 			"request": "launch",

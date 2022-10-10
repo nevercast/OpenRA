@@ -301,7 +301,7 @@ namespace OpenRA.Server
 
 			playerDatabase = modData.Manifest.Get<PlayerDatabase>();
 
-			randomSeed = (int)DateTime.Now.ToBinary();
+			randomSeed = Settings?.Seed ?? (int)DateTime.Now.ToBinary();
 
 			if (type != ServerType.Local && settings.EnableGeoIP)
 				GeoIP.Initialize();

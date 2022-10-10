@@ -22,12 +22,15 @@ namespace OpenRA.Support
 		public int Last;
 		public int TotalCount = 0;
 
+		public uint Seed { get; private set; }
+		public int StateHash => mt.GetHashCode();
+
 		public MersenneTwister()
 			: this(Environment.TickCount) { }
 
 		public MersenneTwister(int seed)
 		{
-			mt[0] = (uint)seed;
+			mt[0] = Seed = (uint)seed;
 			for (var i = 1u; i < mt.Length; i++)
 				mt[i] = 1812433253u * (mt[i - 1] ^ (mt[i - 1] >> 30)) + i;
 		}

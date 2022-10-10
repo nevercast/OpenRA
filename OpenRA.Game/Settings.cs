@@ -114,6 +114,9 @@ namespace OpenRA
 		[Desc("Delay in milliseconds before players can send chat messages after flood was detected.")]
 		public int FloodLimitCooldown = 15000;
 
+		[Desc("World seed")]
+		public int? Seed = null;
+
 		public ServerSettings Clone()
 		{
 			return (ServerSettings)MemberwiseClone();

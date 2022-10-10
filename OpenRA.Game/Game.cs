@@ -215,6 +215,11 @@ namespace OpenRA
 			worldRenderer.RefreshPalette();
 			Cursor.SetCursor(ChromeMetrics.Get<string>("DefaultCursor"));
 
+			Console.WriteLine("Client {0} started game on map {1} ({2})".F(OrderManager.LocalClient.Index, map.Uid, map.Title));
+			Console.WriteLine("Shared RNG: {0}, hash:{1}".F(OrderManager.World.SharedRandom.Seed, OrderManager.World.SharedRandom.StateHash));
+			Console.WriteLine("Local RNG: {0}, hash:{1}".F(OrderManager.World.LocalRandom.Seed, OrderManager.World.LocalRandom.StateHash));
+			Console.WriteLine("Cosmetic RNG: {0}, hash:{1}".F(CosmeticRandom.Seed, CosmeticRandom.StateHash));
+
 			// Now loading is completed, now is the ideal time to run a GC and compact the LOH.
 			// - All the temporary garbage created during loading can be collected.
 			// - Live objects are likely to live for the length of the game or longer,
@@ -960,6 +965,63 @@ namespace OpenRA
 		public static void BenchmarkMode(string prefix)
 		{
 			benchmark = new Benchmark(prefix);
+		}
+
+		public static void BotSkirmish(string launchMap, string argSeed, string bot1, string bot2)
+		{
+			var map = ModData.MapCache.SingleOrDefault(m => m.Uid == launchMap || Path.GetFileName(m.Package.Name) == launchMap);
+			if (map == null)
+				throw new ArgumentException($"Could not find map '{launchMap}'.");
+
+			int? seed = null;
+			if (argSeed != null)
+			{
+				if (!int.TryParse(argSeed, out var s))
+				{
+					throw new ArgumentException($"Invalid seed '{argSeed}'.");
+				}
+
+				seed = s;
+			}
+
+			var settings = new ServerSettings()
+			{
+				Name = "Skirmish Game",
+				Map = map.Uid,
+				AdvertiseOnline = false,
+				Seed = seed,
+			};
+
+			// Always connect to local games using the same loopback connection
+			// Exposing multiple endpoints introduces a race condition on the client's PlayerIndex (sometimes 0, sometimes 1)
+			// This would break the Restart button, which relies on the PlayerIndex always being the same for local servers
+			var endpoints = new List<IPEndPoint>
+			{
+				new IPEndPoint(IPAddress.Loopback, 0)
+			};
+			server = new Server.Server(endpoints, settings, ModData, ServerType.Local);
+
+			var endpoint = server.GetEndpointForLocalConnection();
+
+			OrderManager om = null;
+			var setupOrders = new List<Order>
+			{
+				Order.Command("option gamespeed default"),
+				Order.Command($"state {Session.ClientState.NotReady}"),
+				Order.Command("spectate"),
+				Order.Command($"slot_bot Multi0 0 {bot1}"),
+				Order.Command($"slot_bot Multi1 0 {bot2}"),
+				Order.Command($"state {Session.ClientState.Ready}")
+			};
+
+			void OnLobbyReady()
+			{
+					LobbyInfoChanged -= OnLobbyReady;
+					foreach (var o in setupOrders)
+							om.IssueOrder(o);
+			}
+			LobbyInfoChanged += OnLobbyReady;
+			om = JoinServer(endpoint, "");
 		}
 
 		public static void LoadMap(string launchMap)
