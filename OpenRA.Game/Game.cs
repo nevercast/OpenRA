@@ -726,18 +726,18 @@ namespace OpenRA
 
 		static void Loop()
 		{
-			var renderCountdown = 600;
+			var renderCountdown = 20000;
 
 			while (state == RunStatus.Running)
 			{
-				if (renderCountdown == 0)
-				{
-					RenderTick();
-					renderCountdown = 600;
-				}
+				// if (renderCountdown == 0)
+				// {
+				// 	RenderTick();
+				// 	renderCountdown = 20000;
+				// }
 
 				LogicTick();
-				renderCountdown--;
+				// renderCountdown--;
 			}
 		}
 
