@@ -80,6 +80,11 @@ namespace OpenRA
 				graphicSettings.Mode, graphicSettings.UIScale, graphicSettings.BatchSize,
 				graphicSettings.VideoDisplay, graphicSettings.GLProfile, !graphicSettings.DisableLegacyGL);
 
+			if (Window.IsNullRenderer)
+			{
+				return;
+			}
+
 			Context = Window.Context;
 
 			TempBufferSize = graphicSettings.BatchSize;

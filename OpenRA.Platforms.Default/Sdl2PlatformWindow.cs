@@ -48,6 +48,8 @@ namespace OpenRA.Platforms.Default
 			}
 		}
 
+		public bool IsNullRenderer => false;
+
 		public Size NativeWindowSize
 		{
 			get

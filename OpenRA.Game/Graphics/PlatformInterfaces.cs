@@ -49,6 +49,8 @@ namespace OpenRA
 
 	public interface IPlatformWindow : IDisposable
 	{
+		bool IsNullRenderer { get; }
+
 		IGraphicsContext Context { get; }
 
 		Size NativeWindowSize { get; }

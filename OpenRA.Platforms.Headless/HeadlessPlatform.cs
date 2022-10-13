@@ -18,7 +18,7 @@ namespace OpenRA.Platforms.Headless
 	{
 		public IPlatformWindow CreateWindow(Size size, WindowMode windowMode, float scaleModifier, int batchSize, int videoDisplay, GLProfile profile, bool enableLegacyGL)
 		{
-			return new Sdl2PlatformWindow(size, windowMode, scaleModifier, batchSize, videoDisplay, profile, enableLegacyGL);
+			return new DummyPlatformWindow();
 		}
 
 		public ISoundEngine CreateSound(string device)
@@ -28,7 +28,7 @@ namespace OpenRA.Platforms.Headless
 
 		public IFont CreateFont(byte[] data)
 		{
-			return new FreeTypeFont(data);
+			return null;
 		}
 	}
 }
