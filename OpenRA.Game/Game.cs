@@ -491,9 +491,9 @@ namespace OpenRA
 			using (new PerfTimer("LoadMaps"))
 				ModData.MapCache.LoadMaps();
 
-
 			var metadata = ModData.Manifest.Metadata;
-			if (Renderer != null) {
+			if (Renderer != null)
+			{
 				var grid = ModData.Manifest.Contains<MapGrid>() ? ModData.Manifest.Get<MapGrid>() : null;
 				Renderer.InitializeDepthBuffer(grid);
 
@@ -750,19 +750,8 @@ namespace OpenRA
 
 		static void Loop()
 		{
-			var renderCountdown = 20000;
-
 			while (state == RunStatus.Running)
-			{
-				// if (renderCountdown == 0)
-				// {
-				// 	RenderTick();
-				// 	renderCountdown = 20000;
-				// }
-
 				LogicTick();
-				// renderCountdown--;
-			}
 		}
 
 		static RunStatus Run()

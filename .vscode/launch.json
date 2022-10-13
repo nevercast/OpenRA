@@ -31,7 +31,7 @@
 			"windows": {
 				"program": "${workspaceRoot}/bin/OpenRA.exe",
 			},
-			"args": ["Game.Mod=ai", "Game.Platform=Headless", "Engine.EngineDir=..", "AI.Bots=rush,rush", "AI.Seed=48484"],
+			"args": ["Game.Mod=ai", "Game.Platform=Headless", "Engine.EngineDir=..", "AI.Bots=rush,rush", "AI.Seed=1337"],
 			"preLaunchTask": "build",
 		},
 		{
