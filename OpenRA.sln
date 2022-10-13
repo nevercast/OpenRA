@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenRA.WindowsLauncher", "O
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenRA.Mods.AI", "OpenRA.Mods.AI\OpenRA.Mods.AI.csproj", "{35CA6E7E-5F1A-44B3-8617-F2836EC51F98}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenRA.Platforms.Headless", "OpenRA.Platforms.Headless\OpenRA.Platforms.Headless.csproj", "{F642FFC1-2B20-4325-952F-FDB8DF9E662F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{35CA6E7E-5F1A-44B3-8617-F2836EC51F98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35CA6E7E-5F1A-44B3-8617-F2836EC51F98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35CA6E7E-5F1A-44B3-8617-F2836EC51F98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F642FFC1-2B20-4325-952F-FDB8DF9E662F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F642FFC1-2B20-4325-952F-FDB8DF9E662F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F642FFC1-2B20-4325-952F-FDB8DF9E662F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F642FFC1-2B20-4325-952F-FDB8DF9E662F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
