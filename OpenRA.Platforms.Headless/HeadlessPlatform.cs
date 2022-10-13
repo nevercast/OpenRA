@@ -23,15 +23,7 @@ namespace OpenRA.Platforms.Headless
 
 		public ISoundEngine CreateSound(string device)
 		{
-			try
-			{
-				return new OpenAlSoundEngine(device);
-			}
-			catch (InvalidOperationException e)
-			{
-				Log.Write("sound", "Failed to initialize OpenAL device. Error was {0}", e);
-				return new DummySoundEngine();
-			}
+			return new DummySoundEngine();
 		}
 
 		public IFont CreateFont(byte[] data)
