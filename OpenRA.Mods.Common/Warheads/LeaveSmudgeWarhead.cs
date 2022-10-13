@@ -50,6 +50,9 @@ namespace OpenRA.Mods.Common.Warheads
 			var targetTile = world.Map.CellContaining(pos);
 			var smudgeLayers = world.WorldActor.TraitsImplementing<SmudgeLayer>().ToDictionary(x => x.Info.Type);
 
+			if (smudgeLayers.Count == 0)
+				return;
+
 			var minRange = (Size.Length > 1 && Size[1] > 0) ? Size[1] : 0;
 			var allCells = world.Map.FindTilesInAnnulus(targetTile, minRange, Size[0]);
 

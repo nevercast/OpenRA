@@ -82,7 +82,7 @@ namespace OpenRA
 
 			if (Window.IsNullRenderer)
 			{
-				return;
+				throw new ArgumentNullException("Window", "Window is a null renderer, not instantiating Renderer class.");
 			}
 
 			Context = Window.Context;

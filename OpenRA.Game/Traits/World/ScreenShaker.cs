@@ -25,7 +25,7 @@ namespace OpenRA.Traits
 		public override object Create(ActorInitializer init) { return new ScreenShaker(this); }
 	}
 
-	public class ScreenShaker : ITick, IWorldLoaded
+	public class ScreenShaker : ITick, IWorldLoaded, IScreenShaker
 	{
 		readonly ScreenShakerInfo info;
 		WorldRenderer worldRenderer;

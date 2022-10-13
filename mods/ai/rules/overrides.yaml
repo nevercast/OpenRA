@@ -1,0 +1,19 @@
+World:
+	MLManage:
+	-CustomTerrainDebugOverlay:
+	-CellTriggerOverlay:
+	-PathFinderOverlay:
+	-HierarchicalPathFinderOverlay:
+	-TerrainRenderer:
+	NullTerrainRenderer:
+	-ShroudRenderer:
+	-SmudgeLayer@CRATER:
+	-SmudgeLayer@SCORCH:
+	-LoadWidgetAtGameStart:
+	-ResourceRenderer:
+	-WithResourceAnimation@GEMS:
+	-ScreenShaker:
+	NullScreenShaker:
+
+^ExistsInWorld:
+	-RenderDebugState:

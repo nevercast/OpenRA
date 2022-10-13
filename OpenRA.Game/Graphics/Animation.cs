@@ -93,6 +93,8 @@ namespace OpenRA.Graphics
 
 		public Rectangle ScreenBounds(WorldRenderer wr, WPos pos, in WVec offset)
 		{
+			if (wr == null)
+				return Rectangle.Empty;
 			var scale = CurrentSequence.Scale;
 			var xy = wr.ScreenPxPosition(pos) + wr.ScreenPxOffset(offset);
 			var cb = CurrentSequence.Bounds;

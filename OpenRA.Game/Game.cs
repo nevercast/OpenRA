@@ -177,7 +177,7 @@ namespace OpenRA
 			// Dispose of the old world before creating a new one.
 			worldRenderer?.Dispose();
 
-			Cursor.SetCursor(null);
+			Cursor?.SetCursor(null);
 			BeforeGameStart();
 
 			Map map;
@@ -190,13 +190,20 @@ namespace OpenRA
 
 			OrderManager.World.GameOver += FinishBenchmark;
 
-			worldRenderer = new WorldRenderer(ModData, OrderManager.World);
+			if (Renderer != null)
+			{
+				worldRenderer = new WorldRenderer(ModData, OrderManager.World);
+			}
 
 			// Proactively collect memory during loading to reduce peak memory.
 			GC.Collect();
 
 			using (new PerfTimer("LoadComplete"))
+			{
+				// This needs to fire, even if we don't have a worldRenderer so that
+				// all the traits do their initialisation
 				OrderManager.World.LoadComplete(worldRenderer);
+			}
 
 			// Proactively collect memory during loading to reduce peak memory.
 			GC.Collect();
@@ -208,8 +215,8 @@ namespace OpenRA
 			Ui.KeyboardFocusWidget = null;
 
 			OrderManager.StartGame();
-			worldRenderer.RefreshPalette();
-			Cursor.SetCursor(ChromeMetrics.Get<string>("DefaultCursor"));
+			worldRenderer?.RefreshPalette();
+			Cursor?.SetCursor(ChromeMetrics.Get<string>("DefaultCursor"));
 
 			Console.WriteLine("Client {0} started game on map {1} ({2})".F(OrderManager.LocalClient.Index, map.Uid, map.Title));
 			Console.WriteLine("Shared RNG: {0}, hash:{1}".F(OrderManager.World.SharedRandom.Seed, OrderManager.World.SharedRandom.StateHash));
@@ -379,7 +386,15 @@ namespace OpenRA
 						throw new InvalidOperationException("Platform dll must include exactly one IPlatform implementation.");
 
 					var platform = (IPlatform)platformType.GetConstructor(Type.EmptyTypes).Invoke(null);
-					Renderer = new Renderer(platform, Settings.Graphics);
+					try
+					{
+						Renderer = new Renderer(platform, Settings.Graphics);
+					}
+					catch (ArgumentNullException)
+					{
+						Renderer = null;
+					}
+
 					break;
 				}
 				catch (Exception e)
@@ -471,20 +486,29 @@ namespace OpenRA
 				return;
 
 			ModData.InitializeLoaders(ModData.DefaultFileSystem);
-			Renderer.InitializeFonts(ModData);
+			Renderer?.InitializeFonts(ModData);
 
 			using (new PerfTimer("LoadMaps"))
 				ModData.MapCache.LoadMaps();
 
-			var grid = ModData.Manifest.Contains<MapGrid>() ? ModData.Manifest.Get<MapGrid>() : null;
-			Renderer.InitializeDepthBuffer(grid);
-
-			Cursor?.Dispose();
-			Cursor = new CursorManager(ModData.CursorProvider);
 
 			var metadata = ModData.Manifest.Metadata;
-			if (!string.IsNullOrEmpty(metadata.WindowTitle))
-				Renderer.Window.SetWindowTitle(metadata.WindowTitle);
+			if (Renderer != null) {
+				var grid = ModData.Manifest.Contains<MapGrid>() ? ModData.Manifest.Get<MapGrid>() : null;
+				Renderer.InitializeDepthBuffer(grid);
+
+				Cursor?.Dispose();
+				Cursor = new CursorManager(ModData.CursorProvider);
+
+				if (!string.IsNullOrEmpty(metadata.WindowTitle))
+				{
+					Renderer.Window.SetWindowTitle(metadata.WindowTitle);
+				}
+			}
+			else if (!string.IsNullOrEmpty(metadata.WindowTitle))
+			{
+				Console.Title = metadata.WindowTitle;
+			}
 
 			PerfHistory.Items["render"].HasNormalTick = false;
 			PerfHistory.Items["batches"].HasNormalTick = false;
@@ -592,7 +616,7 @@ namespace OpenRA
 			{
 				Ui.LastTickTime.AdvanceTickTime(tick);
 				Sync.RunUnsynced(world, Ui.Tick);
-				Cursor.Tick();
+				Cursor?.Tick();
 			}
 
 			if (orderManager.LastTickTime.ShouldAdvance(tick))
@@ -619,7 +643,7 @@ namespace OpenRA
 					}
 
 					// Wait until we have done our first world Tick before TickRendering
-					if (orderManager.LocalFrameNumber > 0)
+					if (orderManager.LocalFrameNumber > 0 && worldRenderer != null)
 						Sync.RunUnsynced(world, () => world.TickRender(worldRenderer));
 				}
 
@@ -763,7 +787,7 @@ namespace OpenRA
 			ModData.Dispose();
 			ChromeProvider.Deinitialize();
 
-			Renderer.Dispose();
+			Renderer?.Dispose();
 
 			OnQuit();
 

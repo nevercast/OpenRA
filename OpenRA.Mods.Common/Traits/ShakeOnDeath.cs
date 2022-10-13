@@ -38,7 +38,7 @@ namespace OpenRA.Mods.Common.Traits
 			if (!info.DeathTypes.IsEmpty && !e.Damage.DamageTypes.Overlaps(info.DeathTypes))
 				return;
 
-			self.World.WorldActor.Trait<ScreenShaker>().AddEffect(info.Duration, self.CenterPosition, info.Intensity);
+			self.World.WorldActor.Trait<IScreenShaker>().AddEffect(info.Duration, self.CenterPosition, info.Intensity);
 		}
 	}
 }

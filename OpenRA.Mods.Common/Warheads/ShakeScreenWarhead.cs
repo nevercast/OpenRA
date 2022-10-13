@@ -28,7 +28,7 @@ namespace OpenRA.Mods.Common.Warheads
 
 		public override void DoImpact(in Target target, WarheadArgs args)
 		{
-			args.SourceActor.World.WorldActor.Trait<ScreenShaker>().AddEffect(Duration, target.CenterPosition, Intensity, Multiplier);
+			args.SourceActor.World.WorldActor.Trait<IScreenShaker>().AddEffect(Duration, target.CenterPosition, Intensity, Multiplier);
 		}
 	}
 }
