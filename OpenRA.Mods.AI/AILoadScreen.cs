@@ -25,11 +25,30 @@ namespace OpenRA.Mods.AI
 		public void StartGame(Arguments args)
 		{
 			var launchArgs = new AILaunchArguments(args);
-			var map = launchArgs.Map ?? "7d5076d43a1849e6961263df547aea27680f470b";
-			var bots = (launchArgs.Bots ?? "rush,rush").Split(',');
-			var seed = launchArgs.Seed ?? "0";
+			if (string.IsNullOrWhiteSpace(launchArgs.Map))
+			{
+				// Display a list of maps and their slot counts
+				Console.WriteLine("Map not specified. Use AI.Map=\"Title or ID\" command line argument.");
+				Console.WriteLine("Available maps:");
+				var lobbyMaps = ModData.MapCache
+					.Where(m => m.Status == MapStatus.Available)
+					.Where(m => m.Visibility.HasFlag(MapVisibility.Lobby))
+					.Select(m => new { m.Title, m.Uid, m.PlayerCount });
 
-			Game.BotSkirmish(map, seed, bots);
+				foreach (var map in lobbyMaps)
+					Console.WriteLine("{0} ({1}): {2} slots", map.Title, map.Uid, map.PlayerCount);
+
+				Game.Exit();
+				return;
+			}
+			else
+			{
+				var map = launchArgs.Map;
+				var bots = (launchArgs.Bots ?? "rush,rush").Split(',');
+				var seed = launchArgs.Seed ?? "0";
+
+				Game.BotSkirmish(map, seed, bots);
+			}
 		}
 
 		public void Dispose()

@@ -857,10 +857,23 @@ namespace OpenRA
 
 		public static void BotSkirmish(string launchMap, string argSeed, string[] bots)
 		{
-			var map = ModData.MapCache.SingleOrDefault(m => m.Uid == launchMap || Path.GetFileName(m.Package.Name) == launchMap);
-			if (map == null)
-				throw new ArgumentException($"Could not find map '{launchMap}'.");
+			var maps = ModData.MapCache.Where(
+				m => m.Uid == launchMap
+				|| Path.GetFileName(m.Package.Name) == launchMap
+				|| m.Title.ToLowerInvariant() == launchMap.ToLowerInvariant());
 
+			if (!maps.Any())
+			{
+				throw new ArgumentException("Map not found: " + launchMap);
+			}
+
+			if (maps.Count() > 1)
+			{
+				var mapList = maps.Select(m => $"{m.Title} ({m.Uid})").Aggregate((a, b) => a + ", " + b);
+				throw new ArgumentException("Multiple maps found: " + mapList);
+			}
+
+			var map = maps.First();
 			int? seed = null;
 			if (argSeed != null)
 			{
