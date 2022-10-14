@@ -31,6 +31,8 @@ namespace OpenRA.Platforms.Headless
 
 		public GLProfile[] SupportedGLProfiles => throw new NotImplementedException();
 
+		public event Action<float, float, float, float> OnWindowScaleChanged;
+
 		public IHardwareCursor CreateHardwareCursor(string name, Size size, byte[] data, int2 hotspot, bool pixelDouble)
 		{
 			return null;
